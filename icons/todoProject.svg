@@ -15,7 +15,7 @@
    viewBox="0 0 1052.3622 744.09449"
    id="svg2"
    version="1.1"
-   inkscape:version="0.91 r13725"
+   inkscape:version="0.48.2 r9819"
    sodipodi:docname="todoProject.svg">
   <defs
      id="defs4">
@@ -28,7 +28,6 @@
          id="stop5599" />
     </linearGradient>
     <linearGradient
-       inkscape:collect="always"
        id="linearGradient4153"
        osb:paint="gradient">
       <stop
@@ -48,9 +47,9 @@
      borderopacity="1.0"
      inkscape:pageopacity="0.0"
      inkscape:pageshadow="2"
-     inkscape:zoom="0.7"
-     inkscape:cx="446.66145"
-     inkscape:cy="278.97919"
+     inkscape:zoom="2.2286112"
+     inkscape:cx="747.56319"
+     inkscape:cy="472.05106"
      inkscape:document-units="px"
      inkscape:current-layer="layer1"
      showgrid="false"
@@ -58,18 +57,26 @@
      fit-margin-left="0"
      fit-margin-right="0"
      fit-margin-bottom="0"
-     inkscape:window-width="1280"
-     inkscape:window-height="961"
-     inkscape:window-x="1912"
+     inkscape:window-width="1366"
+     inkscape:window-height="705"
+     inkscape:window-x="-8"
      inkscape:window-y="-8"
      inkscape:window-maximized="1"
-     showguides="false"
+     showguides="true"
      inkscape:guide-bbox="true"
      units="mm">
     <sodipodi:guide
        position="80.812205,372.24121"
        orientation="0,1"
        id="guide5810" />
+    <sodipodi:guide
+       orientation="0,1"
+       position="610.77526,540.3378"
+       id="guide3237" />
+    <sodipodi:guide
+       orientation="0,1"
+       position="629.49512,562.23052"
+       id="guide3239" />
   </sodipodi:namedview>
   <metadata
      id="metadata7">
@@ -79,7 +86,7 @@
         <dc:format>image/svg+xml</dc:format>
         <dc:type
            rdf:resource="http://purl.org/dc/dcmitype/StillImage" />
-        <dc:title></dc:title>
+        <dc:title />
       </cc:Work>
     </rdf:RDF>
   </metadata>
@@ -235,7 +242,7 @@
        y="311.70218"
        transform="matrix(0,-1,1,0,0,0)" />
     <rect
-       style="opacity:1;fill:#edf9f7;fill-opacity:1;stroke:none;stroke-width:2.15753746;stroke-linecap:round;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+       style="fill:#edf9f7;fill-opacity:1;stroke:none"
        id="rect4136-8"
        width="230.31496"
        height="407.48032"
@@ -377,5 +384,114 @@
          id="tspan5720-8"
          x="568.48212"
          y="310.67804">Add engin oil</tspan></text>
+    <rect
+       style="fill:#a5d6cf;fill-opacity:1;stroke:none"
+       id="rect4136-3-0-8-7"
+       width="224.27446"
+       height="43.57143"
+       x="819.8653"
+       y="284.48422" />
+    <rect
+       style="fill:#008080;fill-opacity:1;stroke:none"
+       id="rect4136-3-2"
+       width="87.610191"
+       height="50"
+       x="-372.1655"
+       y="994.01025"
+       transform="matrix(0,-1,1,0,0,0)" />
+    <g
+       id="g3135"
+       transform="matrix(0.70710678,0.70710678,-0.70710678,0.70710678,673.17541,-288.49101)"
+       style="fill:#edf9f7">
+      <rect
+         transform="matrix(0,-1,1,0,0,0)"
+         y="681.32971"
+         x="-209.41949"
+         height="21"
+         width="5"
+         id="rect4136-3-9-0-3-1-40"
+         style="fill:#edf9f7;fill-opacity:1;stroke:none" />
+      <rect
+         transform="matrix(0,-1,1,0,0,0)"
+         y="681.32971"
+         x="-212.56392"
+         height="21"
+         width="2.1444273"
+         id="rect4136-3-9-0-3-1-40-9"
+         style="fill:#edf9f7;fill-opacity:1;stroke:none" />
+      <rect
+         transform="matrix(0,-1,1,0,0,0)"
+         y="681.32971"
+         x="-203.47614"
+         height="21"
+         width="2.1444273"
+         id="rect4136-3-9-0-3-1-40-9-4"
+         style="fill:#edf9f7;fill-opacity:1;stroke:none" />
+      <path
+         id="rect4136-3-9-0-3-1-40-8"
+         transform="translate(146.82142,15.73198)"
+         d="m 556.34375,185.59375 0,11.28125 5.5,-3.25 0,-4.78125 -5.5,-3.25 z m 6.5,3.8125 0,3.625 3.0625,-1.8125 -3.0625,-1.8125 z"
+         style="fill:#edf9f7;fill-opacity:1;stroke:none"
+         inkscape:connector-curvature="0" />
+    </g>
+    <g
+       id="g3230"
+       transform="translate(280.4741,99.718689)"
+       style="fill:#edf9f7">
+      <rect
+         y="201.45163"
+         x="730.33661"
+         height="15.839835"
+         width="5"
+         id="rect4136-3-9-0-3-4"
+         style="fill:#edf9f7;fill-opacity:1;stroke:none" />
+      <rect
+         y="201.45163"
+         x="736.33661"
+         height="15.839835"
+         width="5"
+         id="rect4136-3-9-0-3-4-5"
+         style="fill:#edf9f7;fill-opacity:1;stroke:none" />
+      <rect
+         y="201.45163"
+         x="742.33661"
+         height="15.839835"
+         width="5"
+         id="rect4136-3-9-0-3-4-5-1"
+         style="fill:#edf9f7;fill-opacity:1;stroke:none" />
+      <rect
+         y="193.79533"
+         x="736.34253"
+         height="6.0875649"
+         width="5"
+         id="rect4136-3-9-0-3-11"
+         style="fill:#edf9f7;fill-opacity:1;stroke:none" />
+      <path
+         sodipodi:nodetypes="ccccc"
+         inkscape:connector-curvature="0"
+         id="rect4136-3-9-0-3-1-5"
+         d="m -200.44962,729.13574 5,0 0,19.41358 -5,0 z"
+         style="fill:#edf9f7;fill-opacity:1;stroke:none"
+         transform="matrix(0,-1,1,0,0,0)" />
+    </g>
+    <text
+       xml:space="preserve"
+       style="font-size:15px;font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;line-height:125%;letter-spacing:0px;word-spacing:0px;fill:#333333;fill-opacity:1;stroke:none;font-family:Segoe UI;-inkscape-font-specification:Segoe UI"
+       x="830.48212"
+       y="310.41907"
+       id="text5718-1-3"
+       sodipodi:linespacing="125%"><tspan
+         sodipodi:role="line"
+         id="tspan5720-4-2"
+         x="830.48212"
+         y="310.41907">Food shopping old</tspan></text>
+    <rect
+       style="fill:#edf9f7;fill-opacity:1;stroke:none"
+       id="rect4136-3-2-1"
+       width="1.0091684"
+       height="39.230961"
+       x="-328.86499"
+       y="999.39478"
+       transform="matrix(0,-1,1,0,0,0)" />
   </g>
 </svg>

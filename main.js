@@ -1,11 +1,27 @@
-var arrowBtn = document.querySelector('.arrow-btn');
+const arrowBtn = document.querySelector('.arrow-btn');
+const magnifi = document.querySelector('.search-btn');
+const searchInput = document.querySelector('.search-inp');
 
-function createLS() {
+function displSearching() {
 
-    var itemCont = document.getElementsByClassName('text-cont').value;
+    if (searchInput.style.display === 'none') {
+        searchInput.style.display = 'block';
+    } else {
+        searchInput.style.display = 'none';
+    }
 
-    var savedItem = localStorage.setItem('todo', JSON.stringify(itemCont));
-
+    // console.log('i\'m ready')
 }
 
-arrowBtn.addEventListener('click', createLS)
+magnifi.addEventListener('click', displSearching)
+
+function getCont() {    
+    
+    let noteCon = document.querySelector('.text-cont').value;
+
+    let savedNote = localStorage.setItem('todo', JSON.stringify(noteCon));
+    
+    // console.log(itemContent);
+}
+
+arrowBtn.addEventListener('click', getCont)

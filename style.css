@@ -51,7 +51,7 @@ body {
     margin-left: 8px;
     width: 100%;
 }
-.submenu-item {
+.submenu-item, .submenu-option {
     height: 50px;
     width: 50px;
     text-align: center;
@@ -60,7 +60,26 @@ body {
 .submenu-item img {
     margin-top: 14px;
 }
+.submenu-option img {
+    margin-top: 8px;
+}
+.submenu {
+    display: none;
+    flex-direction: column;
+    background-color: rgb(0, 128, 128);
+    text-align: center;
+}
+.submenu hr {
+    background: rgb(237, 249, 247);
+    width: 80%;
+    border: 0;
+    height: 2px;
+}
 /*--- note page ---*/
+
+.hide-box {
+    display: none;
+}
 .arrow-btn {
     width: 50px;
     height: 50px;

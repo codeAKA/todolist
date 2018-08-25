@@ -1,10 +1,26 @@
-const addBtn = document.querySelector('.add-btn');
-const magnBtn = document.querySelector('.search-btn');
-const arrowBtn = document.querySelector('.arrow-btn');
-const submenuBtn = document.querySelector('.submenu-item');
-const submenu = document.querySelector('.submenu');
-const searchInput = document.querySelector('.search-inp');
+const addBtn = document.querySelector('.add-btn'),
+      magnBtn = document.querySelector('.search-btn'),
+      searchInput = document.querySelector('.search-inp'),
+      arrowBtn = document.querySelector('.arrow-btn'),
+      submenuBtn = document.querySelectorAll('.submenu-btn');
 
+// --- MAIN PAGE CODE ---
+
+// display SEARCH INPUT
+
+function displSearching() {
+
+    if (searchInput.style.display === 'none') {
+        searchInput.style.display = 'block';
+    } else {
+        searchInput.style.display = 'none';
+    }
+
+}
+
+// --- EDIT PAGE CODE ---
+
+// open page of CREATE/EDIT NOTE and take CONTENT of note
 
 function createNote() {
     
@@ -12,6 +28,8 @@ function createNote() {
     dispCreateNote();
 
 }
+
+// open/close page of CREATE/EDIT NOTE
 
 function dispCreateNote() {
 
@@ -29,39 +47,101 @@ function dispCreateNote() {
     
 }
 
-function displSearching() {
+// get CONTENT from local storage
 
-    if (searchInput.style.display === 'none') {
-        searchInput.style.display = 'block';
-    } else {
-        searchInput.style.display = 'none';
-    }
+function getNotes() {
 
-}
+    let listStorage = localStorage.getItem('todo');
 
-function displSubmenu() {
+    let list = JSON.parse(listStorage);
 
-    if (submenu.style.display === 'none') {
-        submenu.style.display = 'flex';
-    } else {
-        submenu.style.display = 'none';
-    }
+    return list;
 
 }
+
+// get CONTENT of NOTE
 
 function getCont() {    
     
-    let noteCon = document.querySelector('.text-cont').value;
+    let note = document.querySelector('.text-cont').value;
 
-    localStorage.setItem('todo', JSON.stringify(noteCon));
-
-    if (noteCon !== "") {
-        noteCon = "";
+    if (note === "") {
+        return false;
     }
+
+    // let list = getNotes();
+
+    // list.push(note);
+
+    // localStorage.setItem('todo', JSON.stringify(note));
+
+    createVisual(note);
+
+    resetCont();
+
+   // showList();
     
 }
+
+// create NOTE design
+
+function createVisual(text) {
+    
+    let listContainer = document.querySelector('.list-container');
+
+    listContainer.innerHTML += `<div class="list-item">
+    <div class="note-item">${text}
+    </div>
+    <div class="submenu-item">
+        <img src="icons/menu-dots-icon.svg">
+    </div>
+    <div class="submenu">
+        <div class="submenu-option delete">
+            <img src="icons/trash-icon.svg">
+        </div>
+        <hr>
+        <div class="submenu-option edit">
+            <img src="icons/pencil-icon.svg">
+        </div>
+    </div>
+    </div>`;
+
+}
+
+// CLEAR NOTE value
+
+function resetCont() {
+
+    document.querySelector('.text-cont').value = "";
+
+}
+// open SUBMENU buttons of MAIN PAGE (delete or edit note)
+
+function displSubmenu() {
+
+    const submenu = document.querySelector('.submenu');
+
+        if (sumbenu === this) {
+
+        if (submenu.style.display === 'none') {
+            submenu.style.display = 'flex';
+        } else {
+            submenu.style.display = 'none';
+        }
+
+    }
+
+}
+
+// --- ADD LISTENERST TO BUTTONS ---
 
 magnBtn.addEventListener('click', displSearching);
 addBtn.addEventListener('click', dispCreateNote);
 arrowBtn.addEventListener('click', createNote);
-submenuBtn.addEventListener('click', displSubmenu);
+
+for (var i = 0; i < submenuBtn.length; i++) {
+
+    submenuBtn.addEventListener('click', displSubmenu);
+
+}
+

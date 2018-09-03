@@ -1,14 +1,35 @@
-const addBtn = document.querySelector('.add-btn'),
-      magnBtn = document.querySelector('.search-btn'),
+const addTaskBtn = document.querySelector('.add-btn'),
+      searchTaskBtn = document.querySelector('.search-btn'),
       searchInput = document.querySelector('.search-inp'),
-      arrowBtn = document.querySelector('.arrow-btn'),
-      submenuBtn = document.querySelectorAll('.submenu-btn');
+      createTaskBtn = document.querySelector('.arrow-btn');
+
+/*
+let todoArr = localStorage.getItem('todo') ? JSON.parse(localStorage.getItem('todo')) : [];
+
+localStorage.setItem('todo', JSON.stringify(todoArr));
+const data = JSON.parse(localStorage.getItem('todo'));
+
+*/
+
+// get All Tasks
+
+function getAllTasks() {
+    let todoArr = [];
+    let todosList = localStorage.getItem('todo');
+    if (todosList !== null) {
+        todoArr = JSON.parse(todosList);
+    }
+    return todoArr;
+}
+
+
+
 
 // --- MAIN PAGE CODE ---
 
 // display SEARCH INPUT
 
-function displSearching() {
+function displSearchInput() {
 
     if (searchInput.style.display === 'none') {
         searchInput.style.display = 'block';
@@ -22,16 +43,16 @@ function displSearching() {
 
 // open page of CREATE/EDIT NOTE and take CONTENT of note
 
-function createNote() {
+function dispCreateNote() {
     
-    getCont();
-    dispCreateNote();
+    getTaskContent();
+    displayTaskInput();
 
 }
 
 // open/close page of CREATE/EDIT NOTE
 
-function dispCreateNote() {
+function displayTaskInput() {
 
     const appContainer = document.querySelector('.app-box');
     const noteContainer = document.querySelector('.text-box');
@@ -49,7 +70,7 @@ function dispCreateNote() {
 
 // get CONTENT from local storage
 
-function getNotes() {
+function getList() {
 
     let listStorage = localStorage.getItem('todo');
 
@@ -61,34 +82,30 @@ function getNotes() {
 
 // get CONTENT of NOTE
 
-function getCont() {    
+function getTaskContent() {    
     
     let note = document.querySelector('.text-cont').value;
+    let todoArr = getAllTasks();
 
-    if (note === "") {
-        return false;
+    if (note !== "") {
+        
+        todoArr.push(note);
+
+        localStorage.setItem('todo', JSON.stringify(todoArr));
+    
+        showTask(note);
+    
+        resetTaskContent();
+
     }
-
-    // let list = getNotes();
-
-    // list.push(note);
-
-    // localStorage.setItem('todo', JSON.stringify(note));
-
-    createVisual(note);
-
-    resetCont();
-
-   // showList();
     
 }
 
-// create NOTE design
-
-function createVisual(text) {
+function showTask(text) {
     
     let listContainer = document.querySelector('.list-container');
 
+    
     listContainer.innerHTML += `<div class="list-item">
     <div class="note-item">${text}
     </div>
@@ -106,42 +123,58 @@ function createVisual(text) {
     </div>
     </div>`;
 
+    addSubmenuBtnListener();
+
+    displayTaskInput();
+
+
 }
 
-// CLEAR NOTE value
+// Clear Note value
 
-function resetCont() {
+function resetTaskContent() {
 
     document.querySelector('.text-cont').value = "";
 
 }
-// open SUBMENU buttons of MAIN PAGE (delete or edit note)
+
+// create NOTE design
+
+
+function addSubmenuBtnListener() {
+
+    submenuBtn = document.querySelectorAll('.submenu-btn');
+
+    for (var i = 0; i < submenuBtn.length; i++) {
+
+        submenuBtn[i].addEventListener('click', displSubmenu);
+
+    }
+
+}
+
+
+// open Submenu buttons of Main Page (delete or edit note)
 
 function displSubmenu() {
 
-    const submenu = document.querySelector('.submenu');
+    const submenu = document.querySelectorAll('.submenu');
 
-        if (sumbenu === this) {
+    if (sumbenu === this) {
 
         if (submenu.style.display === 'none') {
-            submenu.style.display = 'flex';
+             submenu.style.display = 'flex';
         } else {
             submenu.style.display = 'none';
         }
-
     }
 
 }
 
 // --- ADD LISTENERST TO BUTTONS ---
 
-magnBtn.addEventListener('click', displSearching);
-addBtn.addEventListener('click', dispCreateNote);
-arrowBtn.addEventListener('click', createNote);
+searchTaskBtn.addEventListener('click', displSearchInput);
+addTaskBtn.addEventListener('click', dispCreateNote);
+createTaskBtn.addEventListener('click', getTaskContent);
 
-for (var i = 0; i < submenuBtn.length; i++) {
-
-    submenuBtn.addEventListener('click', displSubmenu);
-
-}
 

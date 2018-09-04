@@ -3,14 +3,6 @@ const addTaskBtn = document.querySelector('.add-btn'),
       searchInput = document.querySelector('.search-inp'),
       createTaskBtn = document.querySelector('.arrow-btn');
 
-/*
-let todoArr = localStorage.getItem('todo') ? JSON.parse(localStorage.getItem('todo')) : [];
-
-localStorage.setItem('todo', JSON.stringify(todoArr));
-const data = JSON.parse(localStorage.getItem('todo'));
-
-*/
-
 // get All Tasks
 
 function getAllTasks() {
@@ -21,11 +13,6 @@ function getAllTasks() {
     }
     return todoArr;
 }
-
-
-
-
-// --- MAIN PAGE CODE ---
 
 // display SEARCH INPUT
 
@@ -38,8 +25,6 @@ function displSearchInput() {
     }
 
 }
-
-// --- EDIT PAGE CODE ---
 
 // open page of CREATE/EDIT NOTE and take CONTENT of note
 
@@ -89,7 +74,7 @@ function getTaskContent() {
 
     if (note !== "") {
         
-        todoArr.push(note);
+        //todoArr.push(note);
 
         localStorage.setItem('todo', JSON.stringify(todoArr));
     
@@ -105,28 +90,73 @@ function showTask(text) {
     
     let listContainer = document.querySelector('.list-container');
 
-    
-    listContainer.innerHTML += `<div class="list-item">
-    <div class="note-item">${text}
-    </div>
-    <div class="submenu-item">
-        <img src="icons/menu-dots-icon.svg">
-    </div>
-    <div class="submenu">
-        <div class="submenu-option delete">
-            <img src="icons/trash-icon.svg">
-        </div>
-        <hr>
-        <div class="submenu-option edit">
-            <img src="icons/pencil-icon.svg">
-        </div>
-    </div>
-    </div>`;
+    let task = document.createElement("div");
+    task.className = "list-item";
 
-    addSubmenuBtnListener();
+    let taskContent = document.createElement("div");
+    taskContent.className = "note-item";
+    taskContent.textContent = text;
+
+    let subenuBtn = document.createElement("div");
+    subenuBtn.className = "submenu-item";
+
+    let dotsImg = document.createElement("img");
+    dotsImg.src = "icons/menu-dots-icon.svg";
+
+    let taskSubmenu = document.createElement("div");
+    taskSubmenu.className = "submenu";
+
+    let taskSubmDel = document.createElement("div");
+    taskSubmDel.className = "submenu-option delete";
+
+    let taskSubmImg1 = document.createElement("img");
+    taskSubmImg1.src = "icons/trash-icon.svg";
+
+    let taskSubmEdit = document.createElement("div");
+    taskSubmEdit.className = "submenu-option delete";
+
+    let taskSubmImg2 = document.createElement("img");
+    taskSubmImg2.src = "icons/pencil-icon.svg";
+
+    let hr = document.createElement("hr");
+
+    taskSubmDel.appendChild(taskSubmImg1);
+
+    taskSubmEdit.appendChild(taskSubmImg2);
+
+    taskSubmenu.appendChild(taskSubmDel);
+    taskSubmenu.appendChild(hr);
+    taskSubmenu.appendChild(taskSubmEdit);
+
+    subenuBtn.appendChild(dotsImg);
+
+    task.appendChild(taskContent);
+    task.appendChild(subenuBtn);
+    task.appendChild(taskSubmenu);
+
+    listContainer.appendChild(task);
+
+    subenuBtn.addEventListener("click", function() {
+           
+        if (this.parentNode.lastElementChild.style.display === 'none') {
+            this.parentNode.lastElementChild.style.display = 'flex';
+        } else {
+            this.parentNode.lastElementChild.style.display = 'none';
+        }    
+    
+    });
+
+    taskSubmDel.addEventListener("click", function() {
+
+        let item = this.parentNode.parentNode;
+        let parent = item.parentNode;
+
+        parent.removeChild(item);
+
+    });
+
 
     displayTaskInput();
-
 
 }
 
@@ -135,39 +165,6 @@ function showTask(text) {
 function resetTaskContent() {
 
     document.querySelector('.text-cont').value = "";
-
-}
-
-// create NOTE design
-
-
-function addSubmenuBtnListener() {
-
-    submenuBtn = document.querySelectorAll('.submenu-btn');
-
-    for (var i = 0; i < submenuBtn.length; i++) {
-
-        submenuBtn[i].addEventListener('click', displSubmenu);
-
-    }
-
-}
-
-
-// open Submenu buttons of Main Page (delete or edit note)
-
-function displSubmenu() {
-
-    const submenu = document.querySelectorAll('.submenu');
-
-    if (sumbenu === this) {
-
-        if (submenu.style.display === 'none') {
-             submenu.style.display = 'flex';
-        } else {
-            submenu.style.display = 'none';
-        }
-    }
 
 }
 

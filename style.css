@@ -36,6 +36,7 @@ body {
     background-color: rgb(237, 249, 247);
 }
 .list-item {
+    position: relative;
     display: flex;
     justify-content: space-between;
     align-items: center;
@@ -65,6 +66,9 @@ body {
 }
 .submenu {
     display: none;
+    position: absolute;
+    right: 0px;
+    top: 54px;
     flex-direction: column;
     background-color: rgb(0, 128, 128);
     text-align: center;

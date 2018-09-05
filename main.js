@@ -3,6 +3,18 @@ const addTaskBtn = document.querySelector('.add-btn'),
       searchInput = document.querySelector('.search-inp'),
       createTaskBtn = document.querySelector('.arrow-btn');
 
+// display Search Task Input
+
+function displSearchInput() {
+
+    if (searchInput.style.display === 'none') {
+        searchInput.style.display = 'block';
+    } else {
+        searchInput.style.display = 'none';
+    }
+
+}
+
 // get All Tasks
 
 function getAllTasks() {
@@ -14,17 +26,18 @@ function getAllTasks() {
     return todoArr;
 }
 
-// display SEARCH INPUT
-
-function displSearchInput() {
-
-    if (searchInput.style.display === 'none') {
-        searchInput.style.display = 'block';
-    } else {
-        searchInput.style.display = 'none';
-    }
-
+function displayAllTasks(){
+    let todoArray = getAllTasks();
+    todoArray.forEach(x => showTasks(x));
 }
+
+function hideAppTextarea() {
+    document.querySelector('.text-box').style.display = "none";
+}
+
+window.addEventListener('load', displayAllTasks, hideAppTextarea)
+
+
 
 // open page of CREATE/EDIT NOTE and take CONTENT of note
 
@@ -53,32 +66,20 @@ function displayTaskInput() {
     
 }
 
-// get CONTENT from local storage
-
-function getList() {
-
-    let listStorage = localStorage.getItem('todo');
-
-    let list = JSON.parse(listStorage);
-
-    return list;
-
-}
-
 // get CONTENT of NOTE
 
 function getTaskContent() {    
     
     let note = document.querySelector('.text-cont').value;
-    let todoArr = getAllTasks();
+    let todoArray = getAllTasks();
 
     if (note !== "") {
         
-        //todoArr.push(note);
+        todoArray.push(note);
 
-        localStorage.setItem('todo', JSON.stringify(todoArr));
+        localStorage.setItem('todo', JSON.stringify(todoArray));
     
-        showTask(note);
+        showTasks(todoArray[todoArray.length - 1]);
     
         resetTaskContent();
 
@@ -86,12 +87,21 @@ function getTaskContent() {
     
 }
 
-function showTask(text) {
+// Clear Note value
+
+function resetTaskContent() {
+
+    document.querySelector('.text-cont').value = "";
+
+}
+
+function showTasks(text, index) {
     
     let listContainer = document.querySelector('.list-container');
 
     let task = document.createElement("div");
     task.className = "list-item";
+    // task.setAttribute("id", `${index}`); - for reason of delete tasks
 
     let taskContent = document.createElement("div");
     taskContent.className = "note-item";
@@ -155,16 +165,7 @@ function showTask(text) {
 
     });
 
-
     displayTaskInput();
-
-}
-
-// Clear Note value
-
-function resetTaskContent() {
-
-    document.querySelector('.text-cont').value = "";
 
 }
 

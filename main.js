@@ -24,10 +24,14 @@ function getAllTasks() {
     return todoArr;
 }
 
+// load all Tasks
+
 function displayAllTasks(){
     let todoArray = getAllTasks();
     todoArray.forEach(x => showTasks(x));
 }
+
+// hide Create/Edit (Textarea Window)
 
 function hideAppTextarea() {
     if (document.querySelector('.app-box').classList.contains("hide-box")) {
@@ -38,14 +42,14 @@ function hideAppTextarea() {
 
 window.addEventListener('load', displayAllTasks, hideAppTextarea)
 
-// open page of CREATE/EDIT NOTE and take CONTENT of note
+// open page of Create/Edit (Textarea Window) and take Content of Task
 
 function dispCreateNote() {    
     getTaskContent();
     displayTaskInput();
 }
 
-// open/close page of CREATE/EDIT NOTE
+// open/close page of Create/Edit (Textarea Window)
 
 function displayTaskInput() {
 
@@ -63,7 +67,7 @@ function displayTaskInput() {
     
 }
 
-// get CONTENT of NOTE
+// get Content of Task
 
 function getTaskContent() {    
     
@@ -77,8 +81,6 @@ function getTaskContent() {
         localStorage.setItem('todo', JSON.stringify(todoArray));
     
         showTasks(todoArray[todoArray.length - 1], todoArray.length - 1);
-
-        //showTasks(todoArray[0]);
     
         resetTaskContent();
 
@@ -88,7 +90,7 @@ function getTaskContent() {
     
 }
 
-// Clear Note value
+// Clear Task value (Textarea Window)
 
 function resetTaskContent() {
 
@@ -100,15 +102,15 @@ function resetTaskContent() {
 
 function showTasks(text, index) {
 
-    let zIdx = 1000 - index - index;
-    index = index + "";
+    let zIdx = 1000 - index - index; // growing z-index (becouse of display Submenu)
+    index = index + ""; // index to string = id
     
     let listContainer = document.querySelector('.list-container');
 
     let task = document.createElement("div");
     task.className = "list-item";
-    task.setAttribute("id", index); // because of delete tasks
-    task.style.zIndex = zIdx;
+    task.setAttribute("id", index); // id to delete/edit tasks
+    task.style.zIndex = zIdx; // growing z-index (becouse of display Submenu)
 
     let taskContent = document.createElement("div");
     taskContent.className = "note-item";

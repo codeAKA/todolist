@@ -52,17 +52,29 @@ body {
     margin-left: 8px;
     width: 100%;
 }
+.submenu {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-evenly;
+}
 .submenu-item, .submenu-option {
     height: 50px;
     width: 50px;
     text-align: center;
     cursor: pointer;
 }
+.submenu-option {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-evenly;
+    height: 40px;
+}
 .submenu-item img {
     margin-top: 14px;
 }
 .submenu-option img {
-    margin-top: 8px;
+    top: auto;
+    bottom: auto;
 }
 .submenu {
     display: none;

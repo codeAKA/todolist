@@ -6,13 +6,11 @@ const addTaskBtn = document.querySelector('.add-btn'),
 // display Search Task Input
 
 function displSearchInput() {
-
     if (searchInput.style.display === 'none') {
         searchInput.style.display = 'block';
     } else {
         searchInput.style.display = 'none';
     }
-
 }
 
 // get All Tasks
@@ -32,20 +30,19 @@ function displayAllTasks(){
 }
 
 function hideAppTextarea() {
-    document.querySelector('.text-box').style.display = "none";
+    if (document.querySelector('.app-box').classList.contains("hide-box")) {
+        document.querySelector('.app-box').classList.remove("hide-box");
+        document.querySelector('.text-box').classList.add("hide-box");
+    }
 }
 
 window.addEventListener('load', displayAllTasks, hideAppTextarea)
 
-
-
 // open page of CREATE/EDIT NOTE and take CONTENT of note
 
-function dispCreateNote() {
-    
+function dispCreateNote() {    
     getTaskContent();
     displayTaskInput();
-
 }
 
 // open/close page of CREATE/EDIT NOTE
@@ -79,11 +76,15 @@ function getTaskContent() {
 
         localStorage.setItem('todo', JSON.stringify(todoArray));
     
-        showTasks(todoArray[todoArray.length - 1]);
+        showTasks(todoArray[todoArray.length - 1], todoArray.length - 1);
+
+        //showTasks(todoArray[0]);
     
         resetTaskContent();
 
     }
+
+    hideAppTextarea();
     
 }
 
@@ -95,13 +96,19 @@ function resetTaskContent() {
 
 }
 
+// Create Visible Tasks
+
 function showTasks(text, index) {
+
+    let zIdx = 1000 - index - index;
+    index = index + "";
     
     let listContainer = document.querySelector('.list-container');
 
     let task = document.createElement("div");
     task.className = "list-item";
-    // task.setAttribute("id", `${index}`); - for reason of delete tasks
+    task.setAttribute("id", index); // because of delete tasks
+    task.style.zIndex = zIdx;
 
     let taskContent = document.createElement("div");
     taskContent.className = "note-item";
@@ -146,26 +153,45 @@ function showTasks(text, index) {
 
     listContainer.appendChild(task);
 
-    subenuBtn.addEventListener("click", function() {
-           
-        if (this.parentNode.lastElementChild.style.display === 'none') {
-            this.parentNode.lastElementChild.style.display = 'flex';
-        } else {
-            this.parentNode.lastElementChild.style.display = 'none';
-        }    
-    
-    });
+    subenuBtn.addEventListener("click", dispSubmenyBtns);
+    taskSubmDel.addEventListener("click", removeTask);
 
-    taskSubmDel.addEventListener("click", function() {
+    /* to do...
+    taskSubmEdit.addEventListener("click", function replaceTask()/editTask() {
+        // use "id" to replace oryginal position in local storage
+    }
+    */
 
-        let item = this.parentNode.parentNode;
-        let parent = item.parentNode;
+    hideAppTextarea();
 
-        parent.removeChild(item);
+}
 
-    });
+// show/hide Submenu Buttons
 
-    displayTaskInput();
+function dispSubmenyBtns() {          
+    if (this.parentNode.lastElementChild.style.display === 'none') {
+        this.parentNode.lastElementChild.style.display = 'flex';
+    } else {
+        this.parentNode.lastElementChild.style.display = 'none';
+    }    
+}
+
+// Remove Task
+
+function removeTask() {
+
+    let item = this.parentNode.parentNode;
+    let parent = item.parentNode;
+
+    let itemID = item.id;
+    let todoArray = getAllTasks();
+    todoArray.splice(itemID, 1);
+
+    localStorage.setItem('todo', JSON.stringify(todoArray));
+
+    getAllTasks();
+
+    parent.removeChild(item);
 
 }
 
@@ -174,5 +200,3 @@ function showTasks(text, index) {
 searchTaskBtn.addEventListener('click', displSearchInput);
 addTaskBtn.addEventListener('click', dispCreateNote);
 createTaskBtn.addEventListener('click', getTaskContent);
-
-

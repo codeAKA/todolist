@@ -158,43 +158,31 @@ function displSearchInput() {
         searchInput.style.display = 'block';
     } else {
         searchInput.style.display = 'none';
+        searchInput.value = "";
     }
 }
 
 function findTask() {
 
-    let inputValue = searchInput.value;
+    let inputValue = searchInput.value.toUpperCase();
     let taskArray = document.querySelectorAll(".list-item");
 
     if (inputValue !== "") {
-
         
-
-        console.log(taskArray)
-        /*
-        for (let i = 0; i < taskArray.length; i++) {
-            if (taskArray[i].childNodes[0].textContent.indexOf(inputValue) !== -1) {
-                taskArray[i].style.display = "flex";
-            } else {
-                taskArray[i].style.display = "none";
-            }
-        }
-        */
+        taskArray.forEach(x => {
+            
+            let txtCont = x.querySelector(".note-item").innerHTML.toUpperCase();
         
-        taskArray.forEach(x => { 
-        
-            if (x.firstChild.textContent.indexOf(inputValue) == -1) {
+            if (txtCont.indexOf(inputValue) == -1) {
                 x.style.display = "none";
             } else {
                 x.style.display = "flex";
             }
 
-        })
-        
+        })        
 
     }
 
-    console.log(inputValue)
 }
 
 // --- ADD LISTENERST TO BUTTONS ---

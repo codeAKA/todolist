@@ -165,23 +165,19 @@ function displSearchInput() {
 function findTask() {
 
     let inputValue = searchInput.value.toUpperCase();
-    let taskArray = document.querySelectorAll(".list-item");
-
-    if (inputValue !== "") {
+    let taskArray = document.querySelectorAll(".list-item");   
         
-        taskArray.forEach(x => {
+    taskArray.forEach(x => {
             
-            let txtCont = x.querySelector(".note-item").innerHTML.toUpperCase();
-        
-            if (txtCont.indexOf(inputValue) == -1) {
-                x.style.display = "none";
-            } else {
-                x.style.display = "flex";
-            }
+        let txtCont = x.querySelector(".note-item").innerHTML.toUpperCase();
+    
+        if (txtCont.indexOf(inputValue) == -1) {
+            x.style.display = "none";
+        } else {
+            x.style.display = "flex";
+        }
 
-        })        
-
-    }
+    })        
 
 }
 

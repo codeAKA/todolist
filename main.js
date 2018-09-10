@@ -3,16 +3,6 @@ const addTaskBtn = document.querySelector('.add-btn'),
       searchInput = document.querySelector('.search-inp'),
       createTaskBtn = document.querySelector('.arrow-btn');
 
-// display Search Task Input
-
-function displSearchInput() {
-    if (searchInput.style.display === 'none') {
-        searchInput.style.display = 'block';
-    } else {
-        searchInput.style.display = 'none';
-    }
-}
-
 // get All Tasks
 
 function getAllTasks() {
@@ -24,13 +14,6 @@ function getAllTasks() {
     return todoArr;
 }
 
-// load all Tasks
-
-function displayAllTasks(){
-    let todoArray = getAllTasks();
-    todoArray.forEach(x => showTasks(x));
-}
-
 // hide Create/Edit (Textarea Window)
 
 function hideAppTextarea() {
@@ -40,7 +23,7 @@ function hideAppTextarea() {
     }
 }
 
-window.addEventListener('load', displayAllTasks, hideAppTextarea)
+window.addEventListener('load', showTasks, hideAppTextarea);
 
 // open page of Create/Edit (Textarea Window) and take Content of Task
 
@@ -76,11 +59,11 @@ function getTaskContent() {
 
     if (note !== "") {
         
-        todoArray.push(note);
+        todoArray.unshift(note);
 
         localStorage.setItem('todo', JSON.stringify(todoArray));
     
-        showTasks(todoArray[todoArray.length - 1], todoArray.length - 1);
+        showTasks();
     
         resetTaskContent();
 
@@ -99,78 +82,53 @@ function resetTaskContent() {
 }
 
 // Create Visible Tasks
-
-function showTasks(text, index) {
-
-    let zIdx = 1000 - index - index; // growing z-index (becouse of display Submenu)
-    index = index + ""; // index to string = id
-    
+function showTasks() {
     let listContainer = document.querySelector('.list-container');
+    let todoArray = getAllTasks();
 
-    let task = document.createElement("div");
-    task.className = "list-item";
-    task.setAttribute("id", index); // id to delete/edit tasks
-    task.style.zIndex = zIdx; // growing z-index (becouse of display Submenu)
+    let html = `<div>`;
 
-    let taskContent = document.createElement("div");
-    taskContent.className = "note-item";
-    taskContent.textContent = text;
+    for (let i = 0; i < todoArray.length; i++) {
+        zInd = 1000 - 2*i;
+        html +=
 
-    let subenuBtn = document.createElement("div");
-    subenuBtn.className = "submenu-item";
-
-    let dotsImg = document.createElement("img");
-    dotsImg.src = "icons/menu-dots-icon.svg";
-
-    let taskSubmenu = document.createElement("div");
-    taskSubmenu.className = "submenu";
-
-    let taskSubmDel = document.createElement("div");
-    taskSubmDel.className = "submenu-option delete";
-
-    let taskSubmImg1 = document.createElement("img");
-    taskSubmImg1.src = "icons/trash-icon.svg";
-
-    let taskSubmEdit = document.createElement("div");
-    taskSubmEdit.className = "submenu-option delete";
-
-    let taskSubmImg2 = document.createElement("img");
-    taskSubmImg2.src = "icons/pencil-icon.svg";
-
-    let hr = document.createElement("hr");
-
-    taskSubmDel.appendChild(taskSubmImg1);
-
-    taskSubmEdit.appendChild(taskSubmImg2);
-
-    taskSubmenu.appendChild(taskSubmDel);
-    taskSubmenu.appendChild(hr);
-    taskSubmenu.appendChild(taskSubmEdit);
-
-    subenuBtn.appendChild(dotsImg);
-
-    task.appendChild(taskContent);
-    task.appendChild(subenuBtn);
-    task.appendChild(taskSubmenu);
-
-    listContainer.appendChild(task);
-
-    subenuBtn.addEventListener("click", dispSubmenyBtns);
-    taskSubmDel.addEventListener("click", removeTask);
-
-    /* to do...
-    taskSubmEdit.addEventListener("click", function replaceTask()/editTask() {
-        // use "id" to replace oryginal position in local storage
+        `<div id='${i}' class="list-item" style="z-index: ${zInd}">
+            <div class="note-item">${todoArray[i]}
+            </div>
+            <div class="submenu-item">
+                <img src="icons/menu-dots-icon.svg">
+            </div>
+            <div class="submenu">
+                <div class="submenu-option delete">
+                    <img src="icons/trash-icon.svg">
+                </div>
+                <hr>
+                <div class="submenu-option edit">
+                    <img src="icons/pencil-icon.svg">
+                </div>
+            </div>
+        </div>`
     }
-    */
+    html += `</div>`;
 
+    listContainer.innerHTML = html;
+
+    addSubmenuListeners();
     hideAppTextarea();
+}
 
+// add listeners to Submenu Buttons
+
+function addSubmenuListeners() {
+    let subenuBtn = document.querySelectorAll(".submenu-item");
+    let taskSubmDel = document.querySelectorAll(".delete");
+    subenuBtn.forEach(x => x.addEventListener("click", dispSubmenuBtns));
+    taskSubmDel.forEach(y => y.addEventListener("click", removeTask));
 }
 
 // show/hide Submenu Buttons
 
-function dispSubmenyBtns() {          
+function dispSubmenuBtns() {          
     if (this.parentNode.lastElementChild.style.display === 'none') {
         this.parentNode.lastElementChild.style.display = 'flex';
     } else {
@@ -183,18 +141,60 @@ function dispSubmenyBtns() {
 function removeTask() {
 
     let item = this.parentNode.parentNode;
-    let parent = item.parentNode;
-
     let itemID = item.id;
     let todoArray = getAllTasks();
     todoArray.splice(itemID, 1);
 
     localStorage.setItem('todo', JSON.stringify(todoArray));
 
-    getAllTasks();
+    showTasks();
 
-    parent.removeChild(item);
+}
 
+// display Search Task Input
+
+function displSearchInput() {
+    if (searchInput.style.display === 'none') {
+        searchInput.style.display = 'block';
+    } else {
+        searchInput.style.display = 'none';
+    }
+}
+
+function findTask() {
+
+    let inputValue = searchInput.value;
+    let taskArray = document.querySelectorAll(".list-item");
+
+    if (inputValue !== "") {
+
+        
+
+        console.log(taskArray)
+        /*
+        for (let i = 0; i < taskArray.length; i++) {
+            if (taskArray[i].childNodes[0].textContent.indexOf(inputValue) !== -1) {
+                taskArray[i].style.display = "flex";
+            } else {
+                taskArray[i].style.display = "none";
+            }
+        }
+        */
+        
+        taskArray.forEach(x => { 
+        
+            if (x.firstChild.textContent.indexOf(inputValue) == -1) {
+                x.style.display = "none";
+            } else {
+                x.style.display = "flex";
+            }
+
+        })
+        
+
+    }
+
+    console.log(inputValue)
 }
 
 // --- ADD LISTENERST TO BUTTONS ---
@@ -202,3 +202,4 @@ function removeTask() {
 searchTaskBtn.addEventListener('click', displSearchInput);
 addTaskBtn.addEventListener('click', dispCreateNote);
 createTaskBtn.addEventListener('click', getTaskContent);
+searchInput.addEventListener('keyup', findTask);

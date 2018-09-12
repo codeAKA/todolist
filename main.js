@@ -3,7 +3,16 @@ const addTaskBtn = document.querySelector('.add-btn'),
       searchInput = document.querySelector('.search-inp'),
       createTaskBtn = document.querySelector('.arrow-btn');
 
-createTaskBtn.addEventListener('click', getTaskContent);
+// get All Tasks
+
+function getAllTasks() {
+    let todoArr = [];
+    let todosList = localStorage.getItem('todo');
+    if (todosList !== null) {
+        todoArr = JSON.parse(todosList);
+    }
+    return todoArr;
+}
 
 // hide Create/Edit (Textarea Window)
 
@@ -18,8 +27,7 @@ window.addEventListener('load', showTasks, hideAppTextarea);
 
 // open page of Create/Edit (Textarea Window) and take Content of Task
 
-function dispCreateNote() {
-    // changeListeners(e)
+function dispCreateNote() {    
     getTaskContent();
     displayTaskInput();
 }
@@ -42,73 +50,9 @@ function displayTaskInput() {
     
 }
 
-// get All Tasks
-
-function getAllTasks() {
-    let todoArr = [];
-    let todosList = localStorage.getItem('todo');
-    if (todosList !== null) {
-        todoArr = JSON.parse(todosList);
-    }
-    return todoArr;
-}
-
-// change Arrow Button Listener
-
-function changeListeners(e) {
-
-    let checkTarget = e.target;
-
-    if (checkTarget.classList.contains("edit")) {
-        createTaskBtn.removeEventListener("click", getTaskContent);
-        createTaskBtn.addEventListener('click', editTaskContent);
-    } else {
-        createTaskBtn.removeEventListener("click", editTaskContent);
-        createTaskBtn.addEventListener('click', getTaskContent);
-    }
-
-}
-
-// Edit Task Content
-
-function getEditTask() {
-
-    let item = this.parentNode.parentNode;
-    let itemID = item.id;
-    let itemVal = item.firstChild.innerHTML;
-
-    editTaskContent(itemID, itemVal);
-    changeListeners();
-    displayTaskInput();
-
-}
-
-function editTaskContent(id, val) {
-
-    let note = document.querySelector('.text-cont').value;
-    let todoArray = getAllTasks();
-
-    note = val;
-
-    if (note !== "") {
-        
-        todoArray[parseInt(id)] = note;
-
-        localStorage.setItem('todo', JSON.stringify(todoArray));
-    
-        showTasks();
-    
-        resetTaskContent();
-
-    }
-
-    hideAppTextarea();
-
-}
-
 // get Content of Task
 
-function getTaskContent() {    // opcional ARG
+function getTaskContent() {    
     
     let note = document.querySelector('.text-cont').value;
     let todoArray = getAllTasks();
@@ -155,12 +99,12 @@ function showTasks() {
                 <img src="icons/menu-dots-icon.svg">
             </div>
             <div class="submenu">
-                <div class="submenu-option delete">
-                    <img src="icons/trash-icon.svg">
-                </div>
-                <hr>
                 <div class="submenu-option edit">
                     <img src="icons/pencil-icon.svg">
+                </div>
+                <hr>
+                <div class="submenu-option delete">
+                    <img src="icons/trash-icon.svg">
                 </div>
             </div>
         </div>`
@@ -178,10 +122,8 @@ function showTasks() {
 function addSubmenuListeners() {
     let subenuBtn = document.querySelectorAll(".submenu-item");
     let taskSubmDel = document.querySelectorAll(".delete");
-    let taskSubmEdit = document.querySelectorAll(".delete");
     subenuBtn.forEach(x => x.addEventListener("click", dispSubmenuBtns));
     taskSubmDel.forEach(y => y.addEventListener("click", removeTask));
-    taskSubmEdit.forEach(z => z.addEventListener("click", getEditTask));
 }
 
 // show/hide Submenu Buttons
@@ -212,11 +154,16 @@ function removeTask() {
 // display Search Task Input
 
 function displSearchInput() {
-    if (searchInput.style.display === 'none') {
-        searchInput.style.display = 'block';
+    if (!searchInput.classList.contains("show-inp")) {
+        searchInput.classList.add("show-inp");
     } else {
-        searchInput.style.display = 'none';
+        searchInput.classList.remove("show-inp");
         searchInput.value = "";
+        
+        let taskArray = document.querySelectorAll(".list-item");   
+        
+        taskArray.forEach(x => x.style.display = "flex");
+                
     }
 }
 
@@ -243,4 +190,5 @@ function findTask() {
 
 searchTaskBtn.addEventListener('click', displSearchInput);
 addTaskBtn.addEventListener('click', dispCreateNote);
+createTaskBtn.addEventListener('click', getTaskContent);
 searchInput.addEventListener('keyup', findTask);

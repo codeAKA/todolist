@@ -122,8 +122,10 @@ function showTasks() {
 function addSubmenuListeners() {
     let subenuBtn = document.querySelectorAll(".submenu-item");
     let taskSubmDel = document.querySelectorAll(".delete");
+    let taskSubmEdit = document.querySelectorAll(".edit");
     subenuBtn.forEach(x => x.addEventListener("click", dispSubmenuBtns));
     taskSubmDel.forEach(y => y.addEventListener("click", removeTask));
+    taskSubmEdit.forEach(z => z.addEventListener("click", function() {console.log("foo")}));
 }
 
 // show/hide Submenu Buttons

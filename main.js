@@ -90,12 +90,20 @@ function showTasks() {
 
     for (let i = 0; i < todoArray.length; i++) {
         var taskFromArr;
-        if (todoArray[i].length > 50) {
-            let lastIdx = todoArray[i].substr(0, 50).lastIndexOf(" ");
+        var truncatLen = 0;
+        if (screen.width > 700) {
+            truncatLen = 150;
+        }   else {
+            truncatLen = 50;
+        }
+
+        if (todoArray[i].length > truncatLen) {
+            let lastIdx = todoArray[i].substr(0, truncatLen).lastIndexOf(" ");
             taskFromArr = todoArray[i].substr(0, lastIdx) + "...";
         } else {
             taskFromArr = todoArray[i];
         }
+        
         zInd = 1000 - 2*i;
         html +=
 

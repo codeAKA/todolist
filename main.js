@@ -89,11 +89,18 @@ function showTasks() {
     let html = `<div>`;
 
     for (let i = 0; i < todoArray.length; i++) {
+        var taskFromArr;
+        if (todoArray[i].length > 50) {
+            let lastIdx = todoArray[i].substr(0, 50).lastIndexOf(" ");
+            taskFromArr = todoArray[i].substr(0, lastIdx) + "...";
+        } else {
+            taskFromArr = todoArray[i];
+        }
         zInd = 1000 - 2*i;
         html +=
 
         `<div id='${i}' class="list-item" style="z-index: ${zInd}">
-            <div class="note-item">${todoArray[i]}
+            <div class="note-item">${taskFromArr}
             </div>
             <div class="submenu-item">
                 <img src="icons/menu-dots-icon.svg">
@@ -122,12 +129,36 @@ function showTasks() {
 function addSubmenuListeners() {
     let subenuBtn = document.querySelectorAll(".submenu-item");
     let taskSubmDel = document.querySelectorAll(".delete");
-    let taskSubmEdit = document.querySelectorAll(".edit");
+    //let taskSubmEdit = document.querySelectorAll(".edit");
     subenuBtn.forEach(x => x.addEventListener("click", dispSubmenuBtns));
     taskSubmDel.forEach(y => y.addEventListener("click", removeTask));
-    taskSubmEdit.forEach(z => z.addEventListener("click", function() {console.log("foo")}));
+    //taskSubmEdit.forEach(z => z.addEventListener("click", editTask));
+}
+/*
+function changeArrowListener() {
+    if (this.classList.contains("edit")) {
+        createTaskBtn.removeEventListener('click', getTaskContent);
+        createTaskBtn.addEventListener('click', editTask);
+    } else {
+        createTaskBtn.removeEventListener('click', editTask);
+        createTaskBtn.addEventListener('click', getTaskContent);
+    }
+
 }
 
+function editTask() {
+    let todoArray = getAllTasks();
+    let task = this.parentNode.parentNode;
+    let id = task.id;
+    let arrTaskCont = todoArray[id];
+    //let taskCont = task.childNodes[1].innerHTML;
+    changeTaskCont(id, arrTaskCont);
+}
+
+function changeTaskCont(id, cont) {
+    console.log(id, cont);
+}
+*/
 // show/hide Submenu Buttons
 
 function dispSubmenuBtns() {          

@@ -91,7 +91,8 @@ function showTasks() {
     for (let i = 0; i < todoArray.length; i++) {
         var taskFromArr;
         var truncatLen = 0;
-        if (screen.width > 700) {
+
+        if (window.innerWidth > 700) {
             truncatLen = 150;
         }   else {
             truncatLen = 50;
@@ -103,7 +104,7 @@ function showTasks() {
         } else {
             taskFromArr = todoArray[i];
         }
-        
+
         zInd = 1000 - 2*i;
         html +=
 
@@ -137,36 +138,69 @@ function showTasks() {
 function addSubmenuListeners() {
     let subenuBtn = document.querySelectorAll(".submenu-item");
     let taskSubmDel = document.querySelectorAll(".delete");
-    //let taskSubmEdit = document.querySelectorAll(".edit");
+    let taskSubmEdit = document.querySelectorAll(".edit");
     subenuBtn.forEach(x => x.addEventListener("click", dispSubmenuBtns));
     taskSubmDel.forEach(y => y.addEventListener("click", removeTask));
-    //taskSubmEdit.forEach(z => z.addEventListener("click", editTask));
+    taskSubmEdit.forEach(z => z.addEventListener("click", changeArrowListener));
 }
-/*
+
 function changeArrowListener() {
-    if (this.classList.contains("edit")) {
-        createTaskBtn.removeEventListener('click', getTaskContent);
-        createTaskBtn.addEventListener('click', editTask);
+    let ev = this;
+    if (ev.classList.contains("edit")) {
+        let task = ev.parentNode.parentNode;
+        
+        editTaskContent(task);
+        arrowListener(task);
     } else {
-        createTaskBtn.removeEventListener('click', editTask);
+        
+        getTaskContent();
+        arrowListener(task);
+    }
+}
+
+
+function arrowListener(ev) {
+    if (ev.classList.contains("edit")) {
+        createTaskBtn.removeEventListener('click', getTaskContent);
+        createTaskBtn.addEventListener('click', editTaskContent);
+    } else {
+        createTaskBtn.removeEventListener('click', editTaskContent);
         createTaskBtn.addEventListener('click', getTaskContent);
     }
-
 }
 
-function editTask() {
-    let todoArray = getAllTasks();
-    let task = this.parentNode.parentNode;
-    let id = task.id;
+
+function editTaskContent(e) {
+    let todoArray = getAllTasks();    
+    let id = e.id;
     let arrTaskCont = todoArray[id];
     //let taskCont = task.childNodes[1].innerHTML;
     changeTaskCont(id, arrTaskCont);
+    displayTaskInput();
 }
 
-function changeTaskCont(id, cont) {
-    console.log(id, cont);
+function changeTaskCont(id, cont) {    
+    
+    let note = document.querySelector('.text-cont').value;
+    let todoArray = getAllTasks();
+    note = cont;
+
+    if (note !== "") {
+        
+        todoArray.splice(id, 1, note);
+
+        localStorage.setItem('todo', JSON.stringify(todoArray));
+    
+        showTasks();
+    
+        resetTaskContent();
+
+    }
+
+    hideAppTextarea();
+    
 }
-*/
+
 // show/hide Submenu Buttons
 
 function dispSubmenuBtns() {          
@@ -231,5 +265,5 @@ function findTask() {
 
 searchTaskBtn.addEventListener('click', displSearchInput);
 addTaskBtn.addEventListener('click', dispCreateNote);
-createTaskBtn.addEventListener('click', getTaskContent);
+createTaskBtn.addEventListener('click', changeArrowListener);
 searchInput.addEventListener('keyup', findTask);

@@ -27,7 +27,7 @@ window.addEventListener('load', showTasks, hideAppTextarea);
 
 // open page of Create/Edit (Textarea Window) and take Content of Task
 
-function dispCreateNote() {    
+function dispCreateNote() {
     getTaskContent();
     displayTaskInput();
 }
@@ -42,6 +42,7 @@ function displayTaskInput() {
     if (noteContainer.classList.contains('hide-box')) {
         noteContainer.classList.remove('hide-box');
         appContainer.classList.add('hide-box');
+        document.querySelector(".text-cont").focus();
         
     } else {
         noteContainer.classList.add('hide-box');
@@ -210,6 +211,7 @@ function displSearchInput() {
 
     if (!searchInput.classList.contains("show-inp")) {
         searchInput.classList.add("show-inp");
+        searchInput.focus();
     } else {
         searchInput.classList.remove("show-inp");
         searchInput.value = "";

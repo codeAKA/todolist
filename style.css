@@ -22,16 +22,19 @@ body {
     margin-left: 15px;
 }
 .search-inp {
-    width: 0;
+    width: 0px;
     height: 30px;
     background-color: rgb(237, 249, 247);
     border: none;
     display: none;
+    transition: width 0.5s;
+    -webkit-transition: width 0.5s;
+    -moz-transition: width 0.5s;
 }
 .show-inp {
-    width: auto;
+    width: 150px;
     display: block;
-    transition: width 5s;
+    
 }
 .list-container {
     display: flex;
@@ -122,8 +125,11 @@ body {
 .text-box textarea {
     padding: 3px 10px;
     box-sizing: border-box;
+    border: 0;
+    border-color: Transparent; 
+    overflow: auto;
     width: 100%;
-    height: calc(100vh - 53px);
+    height: calc(100vh - 54px);
     background-color: rgb(237, 249, 247);
     font-family: 'Rubik', sans-serif;
     font-size: 14px;
